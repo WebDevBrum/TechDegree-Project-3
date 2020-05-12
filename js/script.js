@@ -86,16 +86,46 @@ DESIGN_THEME.addEventListener('change', (event) => {
      COLOR_OPTIONS[0].selected = true;
     
     }
-    
-    
 });
 
+function createElement(elementName) {
+    const element = document.createElement(elementName);
+    
+    return element;
 
+}
 
+//addition of total cost element
 
+const TOTAL_COST = createElement('p');
+let costCount = 0;
 
+function updateCost() {
+TOTAL_COST.textContent = `Total: $${costCount}`; }
 
+const ACTIVITIES = document.querySelector(".activities");
 
+ACTIVITIES.appendChild(TOTAL_COST);
 
+const checkBoxes = document.querySelectorAll("input[type='checkbox']");
+console.log(checkBoxes);
 
+for(let i = 0; i < checkBoxes.length; i++)
+{
 
+let checkBox = checkBoxes[i];
+checkBox.addEventListener('click', (event) => {
+    let cost = event.target.dataset.cost;
+    if(event.target.checked === true) {
+    
+    costCount+= parseInt(cost);
+    updateCost();}
+    else if (event.target.checked === false) {
+
+    costCount -= parseInt(cost);
+        updateCost();
+    }
+    
+    
+  });
+}
