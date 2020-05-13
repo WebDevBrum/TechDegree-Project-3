@@ -110,7 +110,7 @@ const ACTIVITIES = document.querySelector(".activities");
   ACTIVITIES.appendChild(TOTAL_COST);
 
 const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
-
+console.log(CHECKBOXES);
 
 for (let i = 0; i < CHECKBOXES.length; i++){
 
@@ -119,16 +119,22 @@ for (let i = 0; i < CHECKBOXES.length; i++){
   checkBox.addEventListener('click', (event) => {
   
     let cost = event.target.dataset.cost;
+    let dateAndTime = event.target.getAttribute("data-day-and-time");
+    
     
     if(event.target.checked === true) {
     
       costCount+= parseInt(cost);
       updateCost();
+      console.log(dateAndTime);
+      //add loop here
       
     } else if (event.target.checked === false) {
 
       costCount -= parseInt(cost);
       updateCost();
+      //undo loop here (without undoing others , possibly disable conflicts?)
     }
   });
 }
+
