@@ -116,6 +116,8 @@ for (let i = 0; i < CHECKBOXES.length; i++){
 
   let checkBox = CHECKBOXES[i];
 
+  //event listener for checkboxes along with checks for competing activities on a given date/time
+  
   checkBox.addEventListener('click', (event) => {
   
     let cost = event.target.dataset.cost;
@@ -128,12 +130,28 @@ for (let i = 0; i < CHECKBOXES.length; i++){
       updateCost();
       console.log(dateAndTime);
       //add loop here
-      
-    } else if (event.target.checked === false) {
+      for (let i = 0; i< CHECKBOXES.length; i++) {
+          let checkDate = CHECKBOXES[i].getAttribute("data-day-and-time");
+          //let checkStatus = CHECKBOXES[i].checked;  
+        if ((dateAndTime === checkDate) /*&& checkStatus*/ && (event.target != CHECKBOXES[i])){
+            console.log('this is an output');
+            CHECKBOXES[i].disabled = true;
+        }
 
+      }
+    } else if (event.target.checked === false) {
+        
       costCount -= parseInt(cost);
       updateCost();
       //undo loop here (without undoing others , possibly disable conflicts?)
+      for (let i = 0; i< CHECKBOXES.length; i++) {
+        let checkDate = CHECKBOXES[i].getAttribute("data-day-and-time");
+        //let checkStatus = CHECKBOXES[i].checked;  
+      if ((dateAndTime === checkDate) /*&& checkStatus*/ && (event.target != CHECKBOXES[i])){
+          console.log('this is an output');
+          CHECKBOXES[i].disabled = false;
+      }
+    }
     }
   });
 }
