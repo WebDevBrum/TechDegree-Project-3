@@ -6,6 +6,53 @@ OTHER_JOB.type = 'hidden'; //makes Other job role entry hidden
 
 const JOB_ROLE = document.getElementById("title");
 
+const DESIGN_THEME = document.getElementById("design");
+const DESIGN_COLOR = document.getElementById("color");
+const THEME_OPTIONS = document.getElementById("design").children;
+const COLOR_OPTIONS = document.getElementById("color").children;
+
+//locks color select and changes default value text content for indication purposes
+
+COLOR_OPTIONS[0].textContent = "Please select a T-shirt theme";
+DESIGN_COLOR.disabled = true; 
+
+const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
+
+//addition of total cost element and ability to calculate value
+
+const TOTAL_COST = createElement('p');
+const ACTIVITIES = document.querySelector(".activities");
+ACTIVITIES.appendChild(TOTAL_COST);
+let costCount = 0;
+
+//Common functions
+
+function createElement(elementName) {
+
+    const element = document.createElement(elementName);
+    
+    return element;
+}
+
+//disables list of color options (helper for event listener )
+
+function colorListDisabled(boolean) {
+
+  for (let i = 0; i < COLOR_OPTIONS.length; i++){
+  
+    COLOR_OPTIONS[i].disabled = boolean;
+  }
+}
+
+// updates the total cost for activities attended based on the cost counter
+
+function updateCost() {
+
+  TOTAL_COST.textContent = `Total: $${costCount}`; 
+}
+
+updateCost();
+
 // text field reveal when job role - other selected
 
 JOB_ROLE.addEventListener('change', (event) => {
@@ -22,29 +69,6 @@ JOB_ROLE.addEventListener('change', (event) => {
     
     }
 });
-
-const DESIGN_THEME = document.getElementById("design");
-const DESIGN_COLOR = document.getElementById("color");
-//maybe get option list for each 
-const THEME_OPTIONS = document.getElementById("design").children;
-const COLOR_OPTIONS = document.getElementById("color").children;
-
-console.log(COLOR_OPTIONS[0].textContent);
-
-//locks color select and changes default value text content for indication purposes
-
-COLOR_OPTIONS[0].textContent = "Please select a T-shirt theme";
-DESIGN_COLOR.disabled = true; 
-
-function colorListDisabled(boolean) {
-  for (let i = 0; i < COLOR_OPTIONS.length; i++){
-  
-    COLOR_OPTIONS[i].disabled = boolean;
-  
-  }
-
-
-}
 
 // Selection of available colours based on design 
 
@@ -88,70 +112,41 @@ DESIGN_THEME.addEventListener('change', (event) => {
     }
 });
 
-function createElement(elementName) {
-    const element = document.createElement(elementName);
-    
-    return element;
+//event listener for checkboxes along with checks for competing activities on a given date/time
 
-}
-
-//addition of total cost element and ability to calculate value
-
-const TOTAL_COST = createElement('p');
-let costCount = 0;
-
-function updateCost() {
-  TOTAL_COST.textContent = `Total: $${costCount}`; 
-}
-
-updateCost();
-
-const ACTIVITIES = document.querySelector(".activities");
-  ACTIVITIES.appendChild(TOTAL_COST);
-
-const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
-console.log(CHECKBOXES);
-
-for (let i = 0; i < CHECKBOXES.length; i++){
+for (let i = 0; i < CHECKBOXES.length; i++) {
 
   let checkBox = CHECKBOXES[i];
 
-  //event listener for checkboxes along with checks for competing activities on a given date/time
-  
   checkBox.addEventListener('click', (event) => {
   
     let cost = event.target.dataset.cost;
     let dateAndTime = event.target.getAttribute("data-day-and-time");
     
+    function disableCompeting(state) {
     
-    if(event.target.checked === true) {
+      for (let i = 0; i< CHECKBOXES.length; i++) {
+      
+          let checkDate = CHECKBOXES[i].getAttribute("data-day-and-time");
+        
+          if ((dateAndTime === checkDate) && (event.target != CHECKBOXES[i])){
+        
+            CHECKBOXES[i].disabled = state;
+          }
+       }
+    }
+    
+    if (event.target.checked === true) {
     
       costCount+= parseInt(cost);
       updateCost();
-      console.log(dateAndTime);
-      //add loop here
-      for (let i = 0; i< CHECKBOXES.length; i++) {
-          let checkDate = CHECKBOXES[i].getAttribute("data-day-and-time");
-          //let checkStatus = CHECKBOXES[i].checked;  
-        if ((dateAndTime === checkDate) /*&& checkStatus*/ && (event.target != CHECKBOXES[i])){
-            console.log('this is an output');
-            CHECKBOXES[i].disabled = true;
-        }
-
-      }
+      disableCompeting(true);
+      
     } else if (event.target.checked === false) {
         
       costCount -= parseInt(cost);
       updateCost();
-      //undo loop here (without undoing others , possibly disable conflicts?)
-      for (let i = 0; i< CHECKBOXES.length; i++) {
-        let checkDate = CHECKBOXES[i].getAttribute("data-day-and-time");
-        //let checkStatus = CHECKBOXES[i].checked;  
-      if ((dateAndTime === checkDate) /*&& checkStatus*/ && (event.target != CHECKBOXES[i])){
-          console.log('this is an output');
-          CHECKBOXES[i].disabled = false;
-      }
-    }
+      disableCompeting(false);
     }
   });
 }
