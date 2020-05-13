@@ -95,37 +95,40 @@ function createElement(elementName) {
 
 }
 
-//addition of total cost element
+//addition of total cost element and ability to calculate value
 
 const TOTAL_COST = createElement('p');
 let costCount = 0;
 
 function updateCost() {
-TOTAL_COST.textContent = `Total: $${costCount}`; }
+  TOTAL_COST.textContent = `Total: $${costCount}`; 
+}
+
+updateCost();
 
 const ACTIVITIES = document.querySelector(".activities");
+  ACTIVITIES.appendChild(TOTAL_COST);
 
-ACTIVITIES.appendChild(TOTAL_COST);
+const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
 
-const checkBoxes = document.querySelectorAll("input[type='checkbox']");
-console.log(checkBoxes);
 
-for(let i = 0; i < checkBoxes.length; i++)
-{
+for (let i = 0; i < CHECKBOXES.length; i++){
 
-let checkBox = checkBoxes[i];
-checkBox.addEventListener('click', (event) => {
+  let checkBox = CHECKBOXES[i];
+
+  checkBox.addEventListener('click', (event) => {
+  
     let cost = event.target.dataset.cost;
+    
     if(event.target.checked === true) {
     
-    costCount+= parseInt(cost);
-    updateCost();}
-    else if (event.target.checked === false) {
+      costCount+= parseInt(cost);
+      updateCost();
+      
+    } else if (event.target.checked === false) {
 
-    costCount -= parseInt(cost);
-        updateCost();
+      costCount -= parseInt(cost);
+      updateCost();
     }
-    
-    
   });
 }
