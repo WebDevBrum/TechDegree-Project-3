@@ -151,3 +151,38 @@ for (let i = 0; i < CHECKBOXES.length; i++) {
   });
 }
 
+//payment info 
+const SELECT_PAYMENT = document.getElementById("payment");
+const PAYMENT_OPTIONS = document.getElementById("payment").children;
+
+const CARD_INFO =document.getElementById("credit-card");
+const PAYPAL_INFO = document.getElementById("paypal");
+const BITCOIN_INFO = document.getElementById("bitcoin");
+
+PAYMENT_OPTIONS[0].hidden = true; // hides 'select payment method' on dropdown
+
+
+function hidePaymentMethod(card = true, paypal = true, bitcoin = true) {
+
+CARD_INFO.hidden = card;
+PAYPAL_INFO.hidden = paypal;
+BITCOIN_INFO.hidden = bitcoin;
+}
+
+hidePaymentMethod(card = true, paypal = true, bitcoin = true);
+
+
+SELECT_PAYMENT.addEventListener('change', (event) => {
+   
+    let selected= event.target.value;
+    
+    if (selected === "credit card") {
+        hidePaymentMethod(card = false, paypal = true, bitcoin = true);
+
+    } else if (selected === "paypal") {
+        hidePaymentMethod(card = true, paypal = false, bitcoin = true);
+
+    } else if (selected === "bitcoin") {
+        hidePaymentMethod(card = true, paypal = true, bitcoin = false);
+    } 
+  });
