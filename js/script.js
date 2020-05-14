@@ -1,29 +1,6 @@
 const NAME_FIELD = document.getElementById("name");
 NAME_FIELD.focus(); // sets focus on the first text field
 
-const OTHER_JOB = document.getElementById("other-title");
-OTHER_JOB.type = 'hidden'; //makes Other job role entry hidden
-
-const JOB_ROLE = document.getElementById("title");
-
-const DESIGN_THEME = document.getElementById("design");
-const DESIGN_COLOR = document.getElementById("color");
-const THEME_OPTIONS = document.getElementById("design").children;
-const COLOR_OPTIONS = document.getElementById("color").children;
-
-//locks color select and changes default value text content for indication purposes
-
-COLOR_OPTIONS[0].textContent = "Please select a T-shirt theme";
-DESIGN_COLOR.disabled = true; 
-
-const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
-
-//addition of total cost element and ability to calculate value
-
-const TOTAL_COST = createElement('p');
-const ACTIVITIES = document.querySelector(".activities");
-ACTIVITIES.appendChild(TOTAL_COST);
-let costCount = 0;
 
 //Common functions
 
@@ -34,26 +11,16 @@ function createElement(elementName) {
     return element;
 }
 
-//disables list of color options (helper for event listener )
 
-function colorListDisabled(boolean) {
 
-  for (let i = 0; i < COLOR_OPTIONS.length; i++){
-  
-    COLOR_OPTIONS[i].disabled = boolean;
-  }
-}
+//container for other job 
 
-// updates the total cost for activities attended based on the cost counter
+function otherJob() {
 
-function updateCost() {
+const OTHER_JOB = document.getElementById("other-title");
+OTHER_JOB.type = 'hidden'; //makes Other job role entry hidden
 
-  TOTAL_COST.textContent = `Total: $${costCount}`; 
-}
-
-updateCost();
-
-// text field reveal when job role - other selected
+const JOB_ROLE = document.getElementById("title");
 
 JOB_ROLE.addEventListener('change', (event) => {
    
@@ -69,8 +36,34 @@ JOB_ROLE.addEventListener('change', (event) => {
     
     }
 });
+}
 
-// Selection of available colours based on design 
+otherJob(); //perhaps call at end instead 
+
+
+ //end of container 
+
+//color design container 
+
+const DESIGN_THEME = document.getElementById("design");
+const DESIGN_COLOR = document.getElementById("color");
+const THEME_OPTIONS = document.getElementById("design").children;
+const COLOR_OPTIONS = document.getElementById("color").children;
+
+//locks color select and changes default value text content for indication purposes
+
+COLOR_OPTIONS[0].textContent = "Please select a T-shirt theme";
+DESIGN_COLOR.disabled = true; 
+
+
+function colorListDisabled(boolean) {
+
+  for (let i = 0; i < COLOR_OPTIONS.length; i++){
+  
+    COLOR_OPTIONS[i].disabled = boolean;
+  }
+}
+
 
 DESIGN_THEME.addEventListener('change', (event) => {
    
@@ -112,6 +105,43 @@ DESIGN_THEME.addEventListener('change', (event) => {
     }
 });
 
+
+
+//end of color container 
+
+//checkbox container 
+
+
+const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
+
+//addition of total cost element and ability to calculate value
+
+const TOTAL_COST = createElement('p');
+const ACTIVITIES = document.querySelector(".activities");
+ACTIVITIES.appendChild(TOTAL_COST);
+let costCount = 0;
+
+
+//disables list of color options (helper for event listener )
+
+
+
+// updates the total cost for activities attended based on the cost counter
+
+function updateCost() {
+
+  TOTAL_COST.textContent = `Total: $${costCount}`; 
+}
+
+updateCost();
+
+// text field reveal when job role - other selected
+
+
+
+// Selection of available colours based on design 
+
+
 //event listener for checkboxes along with checks for competing activities on a given date/time
 
 for (let i = 0; i < CHECKBOXES.length; i++) {
@@ -151,7 +181,10 @@ for (let i = 0; i < CHECKBOXES.length; i++) {
   });
 }
 
-//payment info 
+//end of checkbox section
+
+//payment info section 
+
 const SELECT_PAYMENT = document.getElementById("payment");
 const PAYMENT_OPTIONS = document.getElementById("payment").children;
 
@@ -186,3 +219,60 @@ SELECT_PAYMENT.addEventListener('change', (event) => {
         hidePaymentMethod(card = true, paypal = true, bitcoin = false);
     } 
   });
+  
+  //end of payment info section
+  
+  
+  //form validation need to test all these
+  // maybe remove returns and test each value against existing input as per pdf
+  
+  function validName(name) {
+  
+  // do say remove arg and let name = input and compare regex with if true do this , false do that 
+    return /^[a-z ,.'-]+$/i.test(name);
+  
+  }
+  
+  function validEmail(email) {
+    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
+  }
+  
+  function validActivities() {
+  
+    let counter = 0;
+  
+    for (let i = 0; i< CHECKBOXES.length; i++) {
+      
+       if (CHECKBOXES[i].checked = true) {
+      
+       counter+=1;
+       
+      } 
+    }
+    
+    if (counter > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } 
+  
+  
+  //only utilised if payment option is crrdit card
+  
+  //accepts 16 digit card number
+  function validCreditCardNum(number) {
+    return 	/^(\d{4}[- ]){3}\d{4}|\d{16}$/.test(number);
+  }
+  
+  function validZipCode(zip) {
+    return 	/^\d{5}$/.test(zip);
+  }
+  
+  function validCVV(cvv) {
+    return /^([0-9]{3})$/.test(cvv);
+  }
+  
+  // formatters and linters
+  
+  
