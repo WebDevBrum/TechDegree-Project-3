@@ -1,17 +1,13 @@
-//initialise page from hoisted functions
-fieldFocus("name");
-otherJob();
-designSelection();
-activitySelection();
-paymentSelection();
+///Function to create elements
 
-//Function to create elements
 function createElement(elementName) {
 
     const element = document.createElement(elementName);
     return element;
 }
+
 // sets focus on the first text field
+
 function fieldFocus(field) {
 
     const FOCUS_FIELD = document.getElementById(field);
@@ -19,6 +15,7 @@ function fieldFocus(field) {
 }
 
 //Function to add text box if job role 'other' selected
+
 function otherJob() {
 
     const OTHER_JOB = document.getElementById("other-title");
@@ -41,6 +38,7 @@ function otherJob() {
 }
 
 //Function to manage T-Shirt info elements and locking color selection until theme selected.
+
 function designSelection() {
     const DESIGN_THEME = document.getElementById("design");
     const DESIGN_COLOR = document.getElementById("color");
@@ -109,6 +107,7 @@ function activitySelection() {
     const ACTIVITIES = document.querySelector(".activities");
     let costCount = 0;
     ACTIVITIES.appendChild(TOTAL_COST);
+    
     // updates the total cost for activities attended based on the cost counter
     function updateCost() {
 
@@ -157,6 +156,7 @@ function activitySelection() {
 }
 
 //Function to manage payment info section based on option selection
+
 function paymentSelection(){
 
     const SELECT_PAYMENT = document.getElementById("payment");
@@ -192,6 +192,14 @@ function paymentSelection(){
         } 
     });
 }
+
+//initialise page 
+
+fieldFocus("name");
+otherJob();
+designSelection();
+activitySelection();
+paymentSelection();
 
   //form validation need to test all these
   // maybe remove returns and test each value against existing input as per pdf
