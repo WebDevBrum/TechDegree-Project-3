@@ -203,36 +203,52 @@ const PAYMENT_SELECT = ( () => {
   //form validation need to test all these
   // maybe remove returns and test each value against existing input as per pdf
   
-let invalidEntry = createElement('h6');
-invalidEntry.textContent = "";
-invalidEntry.style.color = 'red';
-invalidEntry.style.margin = "0px";
+  const invalidEntry = createElement('h6');
+  invalidEntry.innerHTML = "";
+  invalidEntry.style.color = 'red';
+  invalidEntry.style.margin = "0px";
+  invalidEntry.style.display = "none";
 
-
+  
   function validName() {
   
+
+    const invalidEntry = createElement('h6');
+  invalidEntry.innerHTML = "";
+  invalidEntry.style.color = 'red';
+  invalidEntry.style.margin = "0px";
+  invalidEntry.style.display = "none";
     const name = document.getElementById("name");
-   
+  const invalidElement = name.insertAdjacentElement('beforebegin', invalidEntry);
+  
+
+  
+
     if (/^[a-z ,.'-]+$/i.test(name.value)){
     
-      invalidEntry.style.display = 'none';
+      invalidElement.style.display = "none";
+      invalidElement.innerHTML = "";
+      console.log(invalidEntry);
       return true;
       
-    } else {
-    
-        invalidEntry.style.display = '';
-        name.insertAdjacentElement('beforebegin', invalidEntry);
-        invalidEntry.textContent = "Please enter a valid user name";
+    } else if (/^[a-z ,.'-]+$/i.test(name.value) === false) {
         
+        invalidElement.style.display = '';
+        invalidElement.innerHTML = "Please enter a valid user name";
+        console.log(invalidEntry);
        return false;
       }
    }
   
-  function validEmail() {
+  
+  
+   function validEmail() {
   
     const mail = document.getElementById("mail");
-  
-    if (/^[^@]+@[^@.]+\.[a-z]+$/i.test(mail)){
+    
+    mail.insertAdjacentElement('beforebegin', invalidEntry);
+
+    if (/^[^@]+@[^@.]+\.[a-z]+$/i.test(mail.value)){
     
       invalidEntry.style.display = 'none';
       return true;
@@ -240,7 +256,7 @@ invalidEntry.style.margin = "0px";
     } else {
     
         invalidEntry.style.display = '';
-        mail.insertAdjacentElement('beforebegin', invalidEntry);
+        
         invalidEntry.textContent = "Please enter a valid email";
         
        return false;
