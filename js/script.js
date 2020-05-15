@@ -122,7 +122,7 @@ const SELECT_ACTIVITY = ( () => {
     //event listener for checkboxes along with checks for competing activities on a given date/time
 
     for (let i = 0; i < CHECKBOXES.length; i++) {
-
+        
         let checkBox = CHECKBOXES[i];
 
         checkBox.addEventListener('click', (event) => {
@@ -202,28 +202,42 @@ const PAYMENT_SELECT = ( () => {
 
   //form validation need to test all these
   // maybe remove returns and test each value against existing input as per pdf
-  
-let invalidEntry = createElement('h6');
-invalidEntry.textContent = "";
-invalidEntry.style.color = 'red';
-invalidEntry.style.margin = "0px";
+ 
+  const nameLabel = document.querySelector("label[for='name']");
+  const mailLabel = document.querySelector("label[for='mail']");
+  const activitiesLabel = document.querySelector(".activities");
+  //const cardLabel = document.getElementById();
+ // const zipLabel  = document.getElementById();
+ // const cvvLabel  = document.getElementById();
+
+
+function appendInvalid(element, warning, id){
+    let invalidEntry = createElement('h6');
+    invalidEntry.id = id;
+    invalidEntry.textContent = warning;
+    invalidEntry.style.display = 'none';
+    invalidEntry.style.color = 'red';
+    invalidEntry.style.margin = "0px";
+    element.appendChild(invalidEntry);
+}
+
+appendInvalid(nameLabel, "Please enter a valid username", "nameInvalid");
 
 
   function validName() {
-  
     const name = document.getElementById("name");
-   
-    if (/^[a-z ,.'-]+$/i.test(name.value)){
+    let warning = document.getElementById("nameInvalid");
+
+   console.log(warning.textContent);
+    if (/^[a-z ,.'-]+$/i.test(name.value)) {
     
-      invalidEntry.style.display = 'none';
+      warning.style.display = 'none';
       return true;
       
     } else {
     
-        invalidEntry.style.display = '';
-        name.insertAdjacentElement('beforebegin', invalidEntry);
-        invalidEntry.textContent = "Please enter a valid user name";
         
+        warning.style.display = '';
        return false;
       }
    }
@@ -234,14 +248,12 @@ invalidEntry.style.margin = "0px";
   
     if (/^[^@]+@[^@.]+\.[a-z]+$/i.test(mail)){
     
-      invalidEntry.style.display = 'none';
+      
       return true;
       
     } else {
     
-        invalidEntry.style.display = '';
-        mail.insertAdjacentElement('beforebegin', invalidEntry);
-        invalidEntry.textContent = "Please enter a valid email";
+        
         
        return false;
       }
