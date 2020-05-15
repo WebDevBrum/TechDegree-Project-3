@@ -284,5 +284,7 @@ invalidEntry.style.margin = "0px";
   }
   
   // formatters and linters??
+  const test = document.querySelector("label[for='name']");
   
+  console.log(test.textContent);
   
