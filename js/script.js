@@ -204,11 +204,20 @@ paymentSelection();
   //form validation need to test all these
   // maybe remove returns and test each value against existing input as per pdf
   
-  function validName(name) {
+  function validName() {
   
   // do say remove arg and let name = input and compare regex with if true do this , false do that 
-    return /^[a-z ,.'-]+$/i.test(name);
-  
+    const name = document.getElementById("name")
+    
+    if (/^[a-z ,.'-]+$/i.test(name.value)){
+      return true;
+      
+    } else {
+     name.style.border-color = red;
+    
+    }
+    
+    
   }
   
   function validEmail(email) {
