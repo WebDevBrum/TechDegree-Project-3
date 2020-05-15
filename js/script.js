@@ -222,7 +222,7 @@ function appendInvalid(element, warning, id){
 }
 
 appendInvalid(nameLabel, "Please enter a valid username", "nameInvalid");
-
+appendInvalid(mailLabel, "Please enter a valid email", "emailInvalid");
 
   function validName() {
     const name = document.getElementById("name");
@@ -245,16 +245,17 @@ appendInvalid(nameLabel, "Please enter a valid username", "nameInvalid");
   function validEmail() {
   
     const mail = document.getElementById("mail");
-  
-    if (/^[^@]+@[^@.]+\.[a-z]+$/i.test(mail)){
+    let warning = document.getElementById("emailInvalid");
+
+    if (/^[^@]+@[^@.]+\.[a-z]+$/i.test(mail.value)){
     
-      
+        warning.style.display = 'none';
       return true;
       
     } else {
     
         
-        
+        warning.style.display = '';
        return false;
       }
   }
