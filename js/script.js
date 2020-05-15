@@ -14,9 +14,11 @@ function fieldFocus(field) {
     FOCUS_FIELD.focus(); 
 }
 
-//Function to add text box if job role 'other' selected
+fieldFocus("name");
 
-function otherJob() {
+//Immediately-invoked Function to add text box if job role 'other' selected
+
+const OTHER_JOB = ( () => {
 
     const OTHER_JOB = document.getElementById("other-title");
     const JOB_ROLE = document.getElementById("title");
@@ -35,11 +37,11 @@ function otherJob() {
             OTHER_JOB.type = 'hidden';
         }
 });
-}
+})();
 
-//Function to manage T-Shirt info elements and locking color selection until theme selected.
+//Immediately-invoked Function to manage T-Shirt info elements and locking color selection until theme selected.
 
-function designSelection() {
+const SELECT_DESIGN = ( () => {
     const DESIGN_THEME = document.getElementById("design");
     const DESIGN_COLOR = document.getElementById("color");
     const THEME_OPTIONS = document.getElementById("design").children;
@@ -95,11 +97,11 @@ function designSelection() {
         
         }
     });
-}
+})();
 
-// Function to manage Activity section and update total price accordingly 
+//Immediately-invoked Function to manage Activity section and update total price accordingly 
 
-function activitySelection() {
+const SELECT_ACTIVITY = ( () => {
     const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
 
     //addition of total cost element and ability to calculate value
@@ -123,6 +125,8 @@ function activitySelection() {
         let checkBox = CHECKBOXES[i];
 
         checkBox.addEventListener('click', (event) => {
+        
+        
         
             let cost = event.target.dataset.cost;
             let dateAndTime = event.target.getAttribute("data-day-and-time");
@@ -153,11 +157,11 @@ function activitySelection() {
             }
         });
     }
-}
+})();
 
-//Function to manage payment info section based on option selection
+//Immediately-invoked Function to manage payment info section based on option selection
 
-function paymentSelection(){
+const PAYMENT_SELECT = ( () => {
 
     const SELECT_PAYMENT = document.getElementById("payment");
     const PAYMENT_OPTIONS = document.getElementById("payment").children;
@@ -191,15 +195,9 @@ function paymentSelection(){
             hidePaymentMethod(card = true, paypal = true, bitcoin = false);
         } 
     });
-}
+})();
 
-//initialise page 
 
-fieldFocus("name");
-otherJob();
-designSelection();
-activitySelection();
-paymentSelection();
 
   //form validation need to test all these
   // maybe remove returns and test each value against existing input as per pdf
