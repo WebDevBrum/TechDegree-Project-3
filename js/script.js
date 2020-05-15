@@ -102,6 +102,7 @@ const SELECT_DESIGN = ( () => {
 //Immediately-invoked Function to manage Activity section and update total price accordingly 
 
 const SELECT_ACTIVITY = ( () => {
+
     const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
 
     //addition of total cost element and ability to calculate value
@@ -202,44 +203,48 @@ const PAYMENT_SELECT = ( () => {
   //form validation need to test all these
   // maybe remove returns and test each value against existing input as per pdf
   
-  
-  
-  
-    
-        let invalidEntry = createElement('h6');
-       
-        
-        invalidEntry.textContent = "";
-        invalidEntry.style.color = 'red';
-        invalidEntry.style.margin = "0px";
-        
-        
-        
-    
+let invalidEntry = createElement('h6');
+invalidEntry.textContent = "";
+invalidEntry.style.color = 'red';
+invalidEntry.style.margin = "0px";
+
 
   function validName() {
   
-  // do say remove arg and let name = input and compare regex with if true do this , false do that 
     const name = document.getElementById("name");
    
     if (/^[a-z ,.'-]+$/i.test(name.value)){
-     //name.style.borderColor = "rgb(111, 157, 220)";
+    
       invalidEntry.style.display = 'none';
       return true;
       
     } else {
+    
         invalidEntry.style.display = '';
         name.insertAdjacentElement('beforebegin', invalidEntry);
         invalidEntry.textContent = "Please enter a valid user name";
         
-     return false;
-    }
-    
-    
-  }
+       return false;
+      }
+   }
   
-  function validEmail(email) {
-    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
+  function validEmail() {
+  
+    const mail = document.getElementById("mail");
+  
+    if (/^[^@]+@[^@.]+\.[a-z]+$/i.test(mail)){
+    
+      invalidEntry.style.display = 'none';
+      return true;
+      
+    } else {
+    
+        invalidEntry.style.display = '';
+        mail.insertAdjacentElement('beforebegin', invalidEntry);
+        invalidEntry.textContent = "Please enter a valid email";
+        
+       return false;
+      }
   }
   
   function validActivities() {
