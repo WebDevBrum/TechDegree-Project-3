@@ -204,17 +204,28 @@ paymentSelection();
   //form validation need to test all these
   // maybe remove returns and test each value against existing input as per pdf
   
+    function invalidEntry(location, content) {
+        const name = document.getElementById("name");
+        let invalidEntry = createElement('h6');
+        invalidEntry.textContent = content;
+        invalidEntry.style.color = 'red';
+        invalidEntry.style.margin = "0px";
+        name.insertAdjacentElement(location, invalidEntry);
+    }
+
   function validName() {
   
   // do say remove arg and let name = input and compare regex with if true do this , false do that 
-    const name = document.getElementById("name")
-    
+    const name = document.getElementById("name");
+   
     if (/^[a-z ,.'-]+$/i.test(name.value)){
+     //name.style.borderColor = "rgb(111, 157, 220)";
       return true;
       
     } else {
-     name.style.border-color = red;
-    
+        invalidEntry('beforebegin', 'Please enter a valid name');
+        
+     return false;
     }
     
     
