@@ -203,12 +203,12 @@ const PAYMENT_SELECT = ( () => {
   //form validation need to test all these
   // maybe remove returns and test each value against existing input as per pdf
  
-  const nameLabel = document.querySelector("label[for='name']");
-  const mailLabel = document.querySelector("label[for='mail']");
-  const activitiesLabel = document.querySelector(".activities");
-  //const cardLabel = document.getElementById();
- // const zipLabel  = document.getElementById();
- // const cvvLabel  = document.getElementById();
+ const nameLabel = document.querySelector("label[for='name']");
+ const mailLabel = document.querySelector("label[for='mail']");
+ const activitiesLabel = document.querySelector(".activities");
+ const cardLabel = document.querySelector("label[for='cc-num']");
+ const zipLabel  = document.querySelector("label[for='zip']");
+ const cvvLabel  = document.querySelector("label[for='cvv']");
 
 
 function appendInvalid(element, warning, id){
@@ -223,6 +223,11 @@ function appendInvalid(element, warning, id){
 
 appendInvalid(nameLabel, "Please enter a valid username", "nameInvalid");
 appendInvalid(mailLabel, "Please enter a valid email", "emailInvalid");
+appendInvalid(activitiesLabel, "Please select at least one actuvity", "activityInvalid");
+appendInvalid(cardLabel, "Please enter a valid card number", "cardInvalid");
+appendInvalid(zipLabel, "Please enter a valid Zip number", "zipInvalid");
+appendInvalid(cvvLabel, "Please enter a valid cvv", "cvvInvalid");
+
 
   function validName() {
     const name = document.getElementById("name");
@@ -262,6 +267,8 @@ appendInvalid(mailLabel, "Please enter a valid email", "emailInvalid");
   
   function validActivities() {
   
+  let warning = document.getElementById("activityInvalid");
+  
     let counter = 0;
   
     for (let i = 0; i< CHECKBOXES.length; i++) {
@@ -274,8 +281,10 @@ appendInvalid(mailLabel, "Please enter a valid email", "emailInvalid");
     }
     
     if (counter > 0) {
+      warning.style.display = 'none';
       return true;
     } else {
+      warning.style.display = '';
       return false;
     }
   } 
@@ -284,16 +293,57 @@ appendInvalid(mailLabel, "Please enter a valid email", "emailInvalid");
   //only utilised if payment option is crrdit card
   
   //accepts 16 digit card number
-  function validCreditCardNum(number) {
-    return 	/^(\d{4}[- ]){3}\d{4}|\d{16}$/.test(number);
+  function validCreditCardNum() {
+    
+    const card = document.getElementById("cc-num");
+      let warning = document.getElementById("cardInvalid");
+  
+  
+    if(/^(\d{4}[- ]){3}\d{4}|\d{16}$/.test(card.value)) {
+    
+      warning.style.display = 'none';
+      return true;
+      
+    } else {
+    
+      warning.style.display = '';
+      return false;
+    }
   }
   
-  function validZipCode(zip) {
-    return 	/^\d{5}$/.test(zip);
+  function validZipCode() {
+  
+  const zip = document.getElementById("zip");
+      let warning = document.getElementById("zipInvalid");
+  
+    if(	/^\d{5}$/.test(zip.value)){
+    
+     warning.style.display = 'none';
+      return true;
+      
+    } else {
+    
+      warning.style.display = '';
+      return false;
+    }
   }
   
-  function validCVV(cvv) {
-    return /^([0-9]{3})$/.test(cvv);
+  function validCVV() {
+  
+  
+  const cvv = document.getElementById("cvv");
+      let warning = document.getElementById("cvvInvalid");
+  
+    if (/^([0-9]{3})$/.test(cvv.value)) {
+    
+     warning.style.display = 'none';
+      return true;
+      
+    } else {
+    
+      warning.style.display = '';
+      return false;
+    }
   }
   
   // formatters and linters??
