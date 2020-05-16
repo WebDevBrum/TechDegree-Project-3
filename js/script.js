@@ -269,11 +269,13 @@ appendInvalid(cvvLabel, "Please enter a valid cvv", "cvvInvalid");
   
   let warning = document.getElementById("activityInvalid");
   
+  
+    const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
     let counter = 0;
   
     for (let i = 0; i< CHECKBOXES.length; i++) {
       
-       if (CHECKBOXES[i].checked = true) {
+       if (CHECKBOXES[i].checked === true) {
       
        counter+=1;
        
@@ -345,6 +347,50 @@ appendInvalid(cvvLabel, "Please enter a valid cvv", "cvvInvalid");
       return false;
     }
   }
+  
+  
+ function onSubmit(event) {
+  
+ // need to see if works without functions and add credit card selected, also change constants to caps and do extra credit
+  
+  validName();
+  validEmail();
+  validActivities();
+  validCreditCardNum();
+  validZipCode();
+  validCVV();
+  
+ if ( !validName() || 
+  !validEmail() ||
+  !validActivities() ||
+  !validCreditCardNum() ||
+  !validZipCode() ||
+  !validCVV() ) {
+  
+  
+  
+  
+  event.preventDefault();
+  alert("Please amend areas detailed in red");
+  
+  } else {
+  
+  alert("Thank you for your submission, enjoy the conference!");
+  }
+  
+  
+  
+  }
+  
+  
+  
+  
+  const form = document.querySelector('form');
+  
+  
+  form.addEventListener('submit', onSubmit);
+  
+  
   
   // formatters and linters??
   const test = document.querySelector("label[for='name']");
