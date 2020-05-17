@@ -177,7 +177,10 @@ const PAYMENT_SELECT = ( () => {
     const PAYPAL_INFO = document.getElementById("paypal");
     const BITCOIN_INFO = document.getElementById("bitcoin");
 
-    PAYMENT_OPTIONS[0].hidden = true; // hides 'select payment method' on dropdown
+    PAYMENT_OPTIONS[0].hidden = true; 
+    PAYMENT_OPTIONS[0].disabled = true;
+    
+    // hides 'select payment method' on dropdown
 
     function hidePaymentMethod(card = true, paypal = true, bitcoin = true) {
 
@@ -186,7 +189,7 @@ const PAYMENT_SELECT = ( () => {
         BITCOIN_INFO.hidden = bitcoin;
     }
 
-    hidePaymentMethod(card = true, paypal = true, bitcoin = true);
+    hidePaymentMethod(card = false, paypal = true, bitcoin = true);
 
     SELECT_PAYMENT.addEventListener('change', (event) => {
     
@@ -238,9 +241,9 @@ function appendInvalid(element, warning, id){
 appendInvalid(nameLabel, "Please enter a valid username", "nameInvalid");
 appendInvalid(mailLabel, "Please enter a valid email", "emailInvalid");
 appendInvalid(activitiesLabel, "Please select at least one actuvity", "activityInvalid");
-appendInvalid(cardLabel, "Please enter a valid card number", "cardInvalid");
-appendInvalid(zipLabel, "Please enter a valid Zip number", "zipInvalid");
-appendInvalid(cvvLabel, "Please enter a valid cvv", "cvvInvalid");
+appendInvalid(cardLabel, "Please enter a valid 13 or 16 digit card number (no spaces)", "cardInvalid");
+appendInvalid(zipLabel, "Please enter a valid 5 digit Zip number", "zipInvalid");
+appendInvalid(cvvLabel, "Please enter a valid 3 digit cvv", "cvvInvalid");
 
 
   function validName() {
@@ -315,7 +318,9 @@ appendInvalid(cvvLabel, "Please enter a valid cvv", "cvvInvalid");
       let warning = document.getElementById("cardInvalid");
   
   
- if(/^(\d{4}[- ]){3}\d{4}|\d{16}$/.test(card.value)) {
+  //https://regular-expressions.mobi/creditcard.html?wlr=1
+  
+ if (/^[0-9]{13}(?:[0-9]{3})?$/.test(card.value)) {
     
       warning.style.display = 'none';
       return true;
