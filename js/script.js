@@ -104,6 +104,8 @@ const SELECT_DESIGN = ( () => {
 const SELECT_ACTIVITY = ( () => {
 
     const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
+    
+    
 
     //addition of total cost element and ability to calculate value
     const TOTAL_COST = createElement('p');
@@ -166,6 +168,10 @@ const PAYMENT_SELECT = ( () => {
 
     const SELECT_PAYMENT = document.getElementById("payment");
     const PAYMENT_OPTIONS = document.getElementById("payment").children;
+    
+    const SUBMIT = document.querySelector("button[type='submit']");
+    
+    SUBMIT.disabled = true;
 
     const CARD_INFO =document.getElementById("credit-card");
     const PAYPAL_INFO = document.getElementById("paypal");
@@ -188,17 +194,25 @@ const PAYMENT_SELECT = ( () => {
         
         if (selected === "credit card") {
             hidePaymentMethod(card = false, paypal = true, bitcoin = true);
+            SUBMIT.disabled = false;
 
         } else if (selected === "paypal") {
             hidePaymentMethod(card = true, paypal = false, bitcoin = true);
+            SUBMIT.disabled = false;
 
         } else if (selected === "bitcoin") {
             hidePaymentMethod(card = true, paypal = true, bitcoin = false);
+            SUBMIT.disabled = false;
+            
+        } else if (selected === "select method") {
+            
+            SUBMIT.disabled = true;
         } 
     });
 })();
 
 
+const formValidate = ( () => {
 
   //form validation need to test all these
   // maybe remove returns and test each value against existing input as per pdf
@@ -301,7 +315,7 @@ appendInvalid(cvvLabel, "Please enter a valid cvv", "cvvInvalid");
       let warning = document.getElementById("cardInvalid");
   
   
-    if(/^(\d{4}[- ]){3}\d{4}|\d{16}$/.test(card.value)) {
+ if(/^(\d{4}[- ]){3}\d{4}|\d{16}$/.test(card.value)) {
     
       warning.style.display = 'none';
       return true;
@@ -351,7 +365,7 @@ appendInvalid(cvvLabel, "Please enter a valid cvv", "cvvInvalid");
   
  function onSubmit(event) {
   
- // need to see if works without functions and add credit card selected, also change constants to caps and do extra credit
+ //  change constants to caps and wrap in arrow function, do extra credit and css
   
   validName();
   validEmail();
@@ -360,12 +374,19 @@ appendInvalid(cvvLabel, "Please enter a valid cvv", "cvvInvalid");
   validZipCode();
   validCVV();
   
+  const SELECT_PAYMENT = document.getElementById("payment");
+  const value = SELECT_PAYMENT.value;
+  
+  
+  
+  
  if ( !validName() || 
   !validEmail() ||
   !validActivities() ||
-  !validCreditCardNum() ||
-  !validZipCode() ||
-  !validCVV() ) {
+  (value === "credit card" && !validCreditCardNum() 
+  )||
+  (value === "credit card" && !validZipCode() )||
+  (value === "credit card" && !validCVV() )) {
   
   
   
@@ -390,7 +411,7 @@ appendInvalid(cvvLabel, "Please enter a valid cvv", "cvvInvalid");
   
   form.addEventListener('submit', onSubmit);
   
-  
+  })();
   
   // formatters and linters??
   const test = document.querySelector("label[for='name']");
