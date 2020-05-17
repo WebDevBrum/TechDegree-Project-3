@@ -1,3 +1,8 @@
+---
+permalink: /index.html
+---
+
+
 # TechDegree-Project-3
 
  Use of JavaScript to enhance an interactive registration form for a fictional conference called "FullStack Conf."
