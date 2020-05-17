@@ -171,7 +171,7 @@ const PAYMENT_SELECT = ( () => {
     
     const SUBMIT = document.querySelector("button[type='submit']");
     
-    SUBMIT.disabled = true;
+    //SUBMIT.disabled = true;
 
     const CARD_INFO =document.getElementById("credit-card");
     const PAYPAL_INFO = document.getElementById("paypal");
@@ -179,6 +179,7 @@ const PAYMENT_SELECT = ( () => {
 
     PAYMENT_OPTIONS[0].hidden = true; 
     PAYMENT_OPTIONS[0].disabled = true;
+    PAYMENT_OPTIONS[1].selected = true;
     
     // hides 'select payment method' on dropdown
 
@@ -197,38 +198,36 @@ const PAYMENT_SELECT = ( () => {
         
         if (selected === "credit card") {
             hidePaymentMethod(card = false, paypal = true, bitcoin = true);
-            SUBMIT.disabled = false;
+            //SUBMIT.disabled = false;
 
         } else if (selected === "paypal") {
             hidePaymentMethod(card = true, paypal = false, bitcoin = true);
-            SUBMIT.disabled = false;
+            //SUBMIT.disabled = false;
 
         } else if (selected === "bitcoin") {
             hidePaymentMethod(card = true, paypal = true, bitcoin = false);
-            SUBMIT.disabled = false;
+           // SUBMIT.disabled = false;
             
         } else if (selected === "select method") {
             
-            SUBMIT.disabled = true;
+            //SUBMIT.disabled = true;
         } 
     });
 })();
 
 
-const formValidate = ( () => {
+const FORM_VALIDATE = ( () => {
 
-  //form validation need to test all these
-  // maybe remove returns and test each value against existing input as per pdf
  
- const nameLabel = document.querySelector("label[for='name']");
- const mailLabel = document.querySelector("label[for='mail']");
- const activitiesLabel = document.querySelector(".activities");
- const cardLabel = document.querySelector("label[for='cc-num']");
- const zipLabel  = document.querySelector("label[for='zip']");
- const cvvLabel  = document.querySelector("label[for='cvv']");
+  const NAME_LABEL = document.querySelector("label[for='name']");
+  const MAIL_LABEL = document.querySelector("label[for='mail']");
+  const ACTIVITIES_LABEL = document.querySelector(".activities");
+  const CARD_LABEL = document.querySelector("label[for='cc-num']");
+  const ZIP_LABEL  = document.querySelector("label[for='zip']");
+  const CVV_LABEL  = document.querySelector("label[for='cvv']");
 
 
-function appendInvalid(element, warning, id){
+  function appendInvalid(element, warning, id){
     let invalidEntry = createElement('h6');
     invalidEntry.id = id;
     invalidEntry.textContent = warning;
@@ -236,63 +235,57 @@ function appendInvalid(element, warning, id){
     invalidEntry.style.color = 'red';
     invalidEntry.style.margin = "0px";
     element.appendChild(invalidEntry);
-}
+   }
 
-appendInvalid(nameLabel, "Please enter a valid username", "nameInvalid");
-appendInvalid(mailLabel, "Please enter a valid email", "emailInvalid");
-appendInvalid(activitiesLabel, "Please select at least one actuvity", "activityInvalid");
-appendInvalid(cardLabel, "Please enter a valid 13 or 16 digit card number (no spaces)", "cardInvalid");
-appendInvalid(zipLabel, "Please enter a valid 5 digit Zip number", "zipInvalid");
-appendInvalid(cvvLabel, "Please enter a valid 3 digit cvv", "cvvInvalid");
-
+  appendInvalid(NAME_LABEL, "Please enter a valid name", "nameInvalid");
+  appendInvalid(MAIL_LABEL, "Please enter a valid email", "emailInvalid");
+  appendInvalid(ACTIVITIES_LABEL, "Please select at least one actuvity", "activityInvalid");
+  appendInvalid(CARD_LABEL, "Please enter a valid 13 or 16 digit card number (no spaces)", "cardInvalid");
+  appendInvalid(ZIP_LABEL, "Please enter a valid 5 digit Zip number", "zipInvalid");
+  appendInvalid(CVV_LABEL, "Please enter a valid 3 digit cvv", "cvvInvalid");
 
   function validName() {
-    const name = document.getElementById("name");
+    const NAME = document.getElementById("name");
     let warning = document.getElementById("nameInvalid");
 
-   console.log(warning.textContent);
-    if (/^[a-z ,.'-]+$/i.test(name.value)) {
+    if (/^[a-z ,.'-]+$/i.test(NAME.value)) {
     
       warning.style.display = 'none';
       return true;
       
     } else {
     
-        
-        warning.style.display = '';
-       return false;
-      }
-   }
+      warning.style.display = '';
+      return false;
+    }
+  }
   
   function validEmail() {
   
-    const mail = document.getElementById("mail");
+    const MAIL = document.getElementById("mail");
     let warning = document.getElementById("emailInvalid");
 
-    if (/^[^@]+@[^@.]+\.[a-z]+$/i.test(mail.value)){
+    if (/^[^@]+@[^@.]+\.[a-z]+$/i.test(MAIL.value)){
     
-        warning.style.display = 'none';
+      warning.style.display = 'none';
       return true;
       
     } else {
     
-        
-        warning.style.display = '';
-       return false;
-      }
-  }
+      warning.style.display = '';
+      return false;
+    }
+}
   
   function validActivities() {
   
-  let warning = document.getElementById("activityInvalid");
-  
-  
+    let warning = document.getElementById("activityInvalid");
     const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
     let counter = 0;
   
     for (let i = 0; i< CHECKBOXES.length; i++) {
       
-       if (CHECKBOXES[i].checked === true) {
+      if (CHECKBOXES[i].checked === true) {
       
        counter+=1;
        
@@ -300,27 +293,6 @@ appendInvalid(cvvLabel, "Please enter a valid 3 digit cvv", "cvvInvalid");
     }
     
     if (counter > 0) {
-      warning.style.display = 'none';
-      return true;
-    } else {
-      warning.style.display = '';
-      return false;
-    }
-  } 
-  
-  
-  //only utilised if payment option is crrdit card
-  
-  //accepts 16 digit card number
-  function validCreditCardNum() {
-    
-    const card = document.getElementById("cc-num");
-      let warning = document.getElementById("cardInvalid");
-  
-  
-  //https://regular-expressions.mobi/creditcard.html?wlr=1
-  
- if (/^[0-9]{13}(?:[0-9]{3})?$/.test(card.value)) {
     
       warning.style.display = 'none';
       return true;
@@ -330,16 +302,35 @@ appendInvalid(cvvLabel, "Please enter a valid 3 digit cvv", "cvvInvalid");
       warning.style.display = '';
       return false;
     }
-  }
+  } 
+  
+  function validCreditCardNum() {
+    
+    const CARD = document.getElementById("cc-num");
+    let warning = document.getElementById("cardInvalid");
+  
+  /*https://regular-expressions.mobi/creditcard.html?wlr=1*/
+  
+    if (/^[0-9]{13}(?:[0-9]{3})?$/.test(CARD.value)){
+    
+      warning.style.display = 'none';
+      return true;
+      
+    } else {
+    
+      warning.style.display = '';
+      return false;
+    }
+   }
   
   function validZipCode() {
   
-  const zip = document.getElementById("zip");
-      let warning = document.getElementById("zipInvalid");
+    const ZIP = document.getElementById("zip");
+    let warning = document.getElementById("zipInvalid");
   
-    if(	/^\d{5}$/.test(zip.value)){
+    if (/^\d{5}$/.test(ZIP.value)) {
     
-     warning.style.display = 'none';
+      warning.style.display = 'none';
       return true;
       
     } else {
@@ -351,13 +342,12 @@ appendInvalid(cvvLabel, "Please enter a valid 3 digit cvv", "cvvInvalid");
   
   function validCVV() {
   
+    const CVV = document.getElementById("cvv");
+    let warning = document.getElementById("cvvInvalid");
   
-  const cvv = document.getElementById("cvv");
-      let warning = document.getElementById("cvvInvalid");
-  
-    if (/^([0-9]{3})$/.test(cvv.value)) {
+    if (/^([0-9]{3})$/.test(CVV.value)) {
     
-     warning.style.display = 'none';
+      warning.style.display = 'none';
       return true;
       
     } else {
@@ -365,61 +355,39 @@ appendInvalid(cvvLabel, "Please enter a valid 3 digit cvv", "cvvInvalid");
       warning.style.display = '';
       return false;
     }
-  }
+   }
   
+  function onSubmit(event) {
   
- function onSubmit(event) {
+    validName();
+    validEmail();
+    validActivities();
+    validCreditCardNum();
+    validZipCode();
+    validCVV();
   
- //  change constants to caps and wrap in arrow function, do extra credit and css
+    const SELECT_PAYMENT = document.getElementById("payment");
+    const VALUE = SELECT_PAYMENT.value;
   
-  validName();
-  validEmail();
-  validActivities();
-  validCreditCardNum();
-  validZipCode();
-  validCVV();
+    if ( !validName() || !validEmail() || 
+    !validActivities() ||
+(VALUE === "credit card" && !validCreditCardNum())||
+  (VALUE === "credit card" && !validZipCode() )||
+  (VALUE === "credit card" && !validCVV() )) {
   
-  const SELECT_PAYMENT = document.getElementById("payment");
-  const value = SELECT_PAYMENT.value;
+      event.preventDefault();
+      alert("Please amend areas detailed in red");
   
+     } else {
   
+       alert("Thank you for your submission, enjoy the conference!");
+      }
+    }
   
-  
- if ( !validName() || 
-  !validEmail() ||
-  !validActivities() ||
-  (value === "credit card" && !validCreditCardNum() 
-  )||
-  (value === "credit card" && !validZipCode() )||
-  (value === "credit card" && !validCVV() )) {
-  
-  
-  
-  
-  event.preventDefault();
-  alert("Please amend areas detailed in red");
-  
-  } else {
-  
-  alert("Thank you for your submission, enjoy the conference!");
-  }
-  
-  
-  
-  }
-  
-  
-  
-  
-  const form = document.querySelector('form');
-  
-  
-  form.addEventListener('submit', onSubmit);
+  const FORM = document.querySelector('form');
+  FORM.addEventListener('submit', onSubmit);
   
   })();
   
-  // formatters and linters??
-  const test = document.querySelector("label[for='name']");
   
-  console.log(test.textContent);
   
