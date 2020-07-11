@@ -2,6 +2,10 @@
 permalink: /index.html
 ---
 
+CONTENTS OF THIS FILE
+---------------------
+
+ * Introduction
 
 # TechDegree-Project-3
 
@@ -14,3 +18,11 @@ permalink: /index.html
 
 * validating user input and providing helpful error messages when the user enters invalid information into the form fields.
 
+
+ * Requirements
+ * Recommended modules
+ * Installation
+ * Configuration
+ * Troubleshooting
+ * FAQ
+ * Maintainers
