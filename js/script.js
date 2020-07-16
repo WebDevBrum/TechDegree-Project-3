@@ -1,4 +1,4 @@
-///Function to create elements
+// /Function to create elements
 
 function createElement(elementName) {
   const element = document.createElement(elementName);
@@ -12,62 +12,62 @@ function fieldFocus(field) {
   FOCUS_FIELD.focus();
 }
 
-fieldFocus("name");
+fieldFocus('name');
 
-//Immediately-invoked Function to add text box if job role 'other' selected
+// Immediately-invoked Function to add text box if job role 'other' selected
 
 const OTHER_JOB = (() => {
-  const OTHER_JOB = document.getElementById("other-title");
-  const JOB_ROLE = document.getElementById("title");
-  OTHER_JOB.type = "hidden";
+  const OTHER_JOB = document.getElementById('other-title');
+  const JOB_ROLE = document.getElementById('title');
+  OTHER_JOB.type = 'hidden';
 
-  JOB_ROLE.addEventListener("change", (event) => {
-    let selected = event.target.value;
+  JOB_ROLE.addEventListener('change', event => {
+    const selected = event.target.value;
 
-    if (selected === "other") {
-      OTHER_JOB.type = "text";
+    if (selected === 'other') {
+      OTHER_JOB.type = 'text';
     } else {
-      OTHER_JOB.type = "hidden";
+      OTHER_JOB.type = 'hidden';
     }
   });
 })();
 
-//Immediately-invoked Function to manage T-Shirt info elements and locking color selection until theme selected.
+// Immediately-invoked Function to manage T-Shirt info elements and locking color selection until theme selected.
 
 const SELECT_DESIGN = (() => {
-  const DESIGN_THEME = document.getElementById("design");
-  const DESIGN_COLOR = document.getElementById("color");
-  const THEME_OPTIONS = document.getElementById("design").children;
-  const COLOR_OPTIONS = document.getElementById("color").children;
-  //locks color select and changes default value text content for indication purposes
-  COLOR_OPTIONS[0].textContent = "Please select a T-shirt theme";
+  const DESIGN_THEME = document.getElementById('design');
+  const DESIGN_COLOR = document.getElementById('color');
+  const THEME_OPTIONS = document.getElementById('design').children;
+  const COLOR_OPTIONS = document.getElementById('color').children;
+  // locks color select and changes default value text content for indication purposes
+  COLOR_OPTIONS[0].textContent = 'Please select a T-shirt theme';
   DESIGN_COLOR.disabled = true;
 
   function colorListDisabled(boolean) {
-    for (let i = 0; i < COLOR_OPTIONS.length; i++) {
+    for (let i = 0; i < COLOR_OPTIONS.length; i += 1) {
       COLOR_OPTIONS[i].disabled = boolean;
     }
   }
 
-  DESIGN_THEME.addEventListener("change", (event) => {
-    let selected = event.target.value;
+  DESIGN_THEME.addEventListener('change', event => {
+    const selected = event.target.value;
 
-    if (selected === "js puns") {
+    if (selected === 'js puns') {
       colorListDisabled(true);
 
       DESIGN_COLOR.disabled = false;
-      COLOR_OPTIONS[0].textContent = "Cornflower Blue (JS Puns shirt only)";
+      COLOR_OPTIONS[0].textContent = 'Cornflower Blue (JS Puns shirt only)';
 
       COLOR_OPTIONS[0].disabled = false;
       COLOR_OPTIONS[1].disabled = false;
       COLOR_OPTIONS[2].disabled = false;
 
       COLOR_OPTIONS[0].selected = true;
-    } else if (selected === "heart js") {
+    } else if (selected === 'heart js') {
       colorListDisabled(true);
 
       DESIGN_COLOR.disabled = false;
-      COLOR_OPTIONS[0].textContent = "Cornflower Blue (JS Puns shirt only)";
+      COLOR_OPTIONS[0].textContent = 'Cornflower Blue (JS Puns shirt only)';
 
       COLOR_OPTIONS[3].disabled = false;
       COLOR_OPTIONS[4].disabled = false;
@@ -75,7 +75,7 @@ const SELECT_DESIGN = (() => {
 
       COLOR_OPTIONS[3].selected = true;
     } else {
-      COLOR_OPTIONS[0].textContent = "Please select a T-shirt theme";
+      COLOR_OPTIONS[0].textContent = 'Please select a T-shirt theme';
       DESIGN_COLOR.disabled = true;
 
       COLOR_OPTIONS[0].selected = true;
@@ -83,14 +83,14 @@ const SELECT_DESIGN = (() => {
   });
 })();
 
-//Immediately-invoked Function to manage Activity section and update total price accordingly
+// Immediately-invoked Function to manage Activity section and update total price accordingly
 
 const SELECT_ACTIVITY = (() => {
   const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
 
-  //addition of total cost element and ability to calculate value
-  const TOTAL_COST = createElement("p");
-  const ACTIVITIES = document.querySelector(".activities");
+  // addition of total cost element and ability to calculate value
+  const TOTAL_COST = createElement('p');
+  const ACTIVITIES = document.querySelector('.activities');
   let costCount = 0;
   ACTIVITIES.appendChild(TOTAL_COST);
 
@@ -101,20 +101,20 @@ const SELECT_ACTIVITY = (() => {
 
   updateCost();
 
-  //event listener for checkboxes along with checks for competing activities on a given date/time
+  // event listener for checkboxes along with checks for competing activities on a given date/time
 
-  for (let i = 0; i < CHECKBOXES.length; i++) {
-    let checkBox = CHECKBOXES[i];
+  for (let i = 0; i < CHECKBOXES.length; i += 1) {
+    const checkBox = CHECKBOXES[i];
 
-    checkBox.addEventListener("click", (event) => {
-      let cost = event.target.dataset.cost;
-      let dateAndTime = event.target.getAttribute("data-day-and-time");
+    checkBox.addEventListener('click', event => {
+      const { cost } = event.target.dataset;
+      const dateAndTime = event.target.getAttribute('data-day-and-time');
 
       function disableCompeting(state) {
-        for (let i = 0; i < CHECKBOXES.length; i++) {
-          let checkDate = CHECKBOXES[i].getAttribute("data-day-and-time");
+        for (let i = 0; i < CHECKBOXES.length; i += 1) {
+          const checkDate = CHECKBOXES[i].getAttribute('data-day-and-time');
 
-          if (dateAndTime === checkDate && event.target != CHECKBOXES[i]) {
+          if (dateAndTime === checkDate && event.target !== CHECKBOXES[i]) {
             CHECKBOXES[i].disabled = state;
           }
         }
@@ -132,19 +132,19 @@ const SELECT_ACTIVITY = (() => {
   }
 })();
 
-//Immediately-invoked Function to manage payment info section based on option selection
+// Immediately-invoked Function to manage payment info section based on option selection
 
 const PAYMENT_SELECT = (() => {
-  const SELECT_PAYMENT = document.getElementById("payment");
-  const PAYMENT_OPTIONS = document.getElementById("payment").children;
+  const SELECT_PAYMENT = document.getElementById('payment');
+  const PAYMENT_OPTIONS = document.getElementById('payment').children;
 
   const SUBMIT = document.querySelector("button[type='submit']");
 
-  //SUBMIT.disabled = true;
+  // SUBMIT.disabled = true;
 
-  const CARD_INFO = document.getElementById("credit-card");
-  const PAYPAL_INFO = document.getElementById("paypal");
-  const BITCOIN_INFO = document.getElementById("bitcoin");
+  const CARD_INFO = document.getElementById('credit-card');
+  const PAYPAL_INFO = document.getElementById('paypal');
+  const BITCOIN_INFO = document.getElementById('bitcoin');
 
   PAYMENT_OPTIONS[0].hidden = true;
   PAYMENT_OPTIONS[0].disabled = true;
@@ -160,20 +160,20 @@ const PAYMENT_SELECT = (() => {
 
   hidePaymentMethod((card = false), (paypal = true), (bitcoin = true));
 
-  SELECT_PAYMENT.addEventListener("change", (event) => {
-    let selected = event.target.value;
+  SELECT_PAYMENT.addEventListener('change', event => {
+    const selected = event.target.value;
 
-    if (selected === "credit card") {
+    if (selected === 'credit card') {
       hidePaymentMethod((card = false), (paypal = true), (bitcoin = true));
-      //SUBMIT.disabled = false;
-    } else if (selected === "paypal") {
+      // SUBMIT.disabled = false;
+    } else if (selected === 'paypal') {
       hidePaymentMethod((card = true), (paypal = false), (bitcoin = true));
-      //SUBMIT.disabled = false;
-    } else if (selected === "bitcoin") {
+      // SUBMIT.disabled = false;
+    } else if (selected === 'bitcoin') {
       hidePaymentMethod((card = true), (paypal = true), (bitcoin = false));
       // SUBMIT.disabled = false;
-    } else if (selected === "select method") {
-      //SUBMIT.disabled = true;
+    } else if (selected === 'select method') {
+      // SUBMIT.disabled = true;
     }
   });
 })();
@@ -181,125 +181,119 @@ const PAYMENT_SELECT = (() => {
 const FORM_VALIDATE = (() => {
   const NAME_LABEL = document.querySelector("label[for='name']");
   const MAIL_LABEL = document.querySelector("label[for='mail']");
-  const ACTIVITIES_LABEL = document.querySelector(".activities");
+  const ACTIVITIES_LABEL = document.querySelector('.activities');
   const CARD_LABEL = document.querySelector("label[for='cc-num']");
   const ZIP_LABEL = document.querySelector("label[for='zip']");
   const CVV_LABEL = document.querySelector("label[for='cvv']");
 
   function appendInvalid(element, warning, id) {
-    let invalidEntry = createElement("h6");
+    const invalidEntry = createElement('h6');
     invalidEntry.id = id;
     invalidEntry.textContent = warning;
-    invalidEntry.style.display = "none";
-    invalidEntry.style.color = "red";
-    invalidEntry.style.margin = "0px";
+    invalidEntry.style.display = 'none';
+    invalidEntry.style.color = 'red';
+    invalidEntry.style.margin = '0px';
     element.appendChild(invalidEntry);
   }
 
-  appendInvalid(NAME_LABEL, "Please enter a valid name", "nameInvalid");
-  appendInvalid(MAIL_LABEL, "Please enter a valid email", "emailInvalid");
+  appendInvalid(NAME_LABEL, 'Please enter a valid name', 'nameInvalid');
+  appendInvalid(MAIL_LABEL, 'Please enter a valid email', 'emailInvalid');
   appendInvalid(
     ACTIVITIES_LABEL,
-    "Please select at least one actuvity",
-    "activityInvalid"
+    'Please select at least one actuvity',
+    'activityInvalid'
   );
   appendInvalid(
     CARD_LABEL,
-    "Please enter a valid 13 or 16 digit card number (no spaces)",
-    "cardInvalid"
+    'Please enter a valid 13 or 16 digit card number (no spaces)',
+    'cardInvalid'
   );
   appendInvalid(
     ZIP_LABEL,
-    "Please enter a valid 5 digit Zip number",
-    "zipInvalid"
+    'Please enter a valid 5 digit Zip number',
+    'zipInvalid'
   );
-  appendInvalid(CVV_LABEL, "Please enter a valid 3 digit cvv", "cvvInvalid");
+  appendInvalid(CVV_LABEL, 'Please enter a valid 3 digit cvv', 'cvvInvalid');
 
   function validName() {
-    const NAME = document.getElementById("name");
-    let warning = document.getElementById("nameInvalid");
+    const NAME = document.getElementById('name');
+    const warning = document.getElementById('nameInvalid');
 
     if (/^[a-z ,.'-]+$/i.test(NAME.value)) {
-      warning.style.display = "none";
+      warning.style.display = 'none';
       return true;
-    } else {
-      warning.style.display = "";
-      return false;
     }
+    warning.style.display = '';
+    return false;
   }
 
   function validEmail() {
-    const MAIL = document.getElementById("mail");
-    let warning = document.getElementById("emailInvalid");
+    const MAIL = document.getElementById('mail');
+    const warning = document.getElementById('emailInvalid');
 
     if (/^[^@]+@[^@.]+\.[a-z]+$/i.test(MAIL.value)) {
-      warning.style.display = "none";
+      warning.style.display = 'none';
       return true;
-    } else {
-      warning.style.display = "";
-      return false;
     }
+    warning.style.display = '';
+    return false;
   }
 
   function validActivities() {
-    let warning = document.getElementById("activityInvalid");
+    const warning = document.getElementById('activityInvalid');
     const CHECKBOXES = document.querySelectorAll("input[type='checkbox']");
     let counter = 0;
 
-    for (let i = 0; i < CHECKBOXES.length; i++) {
+    for (let i = 0; i < CHECKBOXES.length; i += 1) {
       if (CHECKBOXES[i].checked === true) {
         counter += 1;
       }
     }
 
     if (counter > 0) {
-      warning.style.display = "none";
+      warning.style.display = 'none';
       return true;
-    } else {
-      warning.style.display = "";
-      return false;
     }
+    warning.style.display = '';
+    return false;
   }
 
   function validCreditCardNum() {
-    const CARD = document.getElementById("cc-num");
-    let warning = document.getElementById("cardInvalid");
+    const CARD = document.getElementById('cc-num');
+    const warning = document.getElementById('cardInvalid');
 
-    /*https://regular-expressions.mobi/creditcard.html?wlr=1*/
+    /* https://regular-expressions.mobi/creditcard.html?wlr=1 */
 
     if (/^[0-9]{13}(?:[0-9]{3})?$/.test(CARD.value)) {
-      warning.style.display = "none";
+      warning.style.display = 'none';
       return true;
-    } else {
-      warning.style.display = "";
-      return false;
     }
+    warning.style.display = '';
+    return false;
   }
 
   function validZipCode() {
-    const ZIP = document.getElementById("zip");
-    let warning = document.getElementById("zipInvalid");
+    const ZIP = document.getElementById('zip');
+    const warning = document.getElementById('zipInvalid');
 
     if (/^\d{5}$/.test(ZIP.value)) {
-      warning.style.display = "none";
+      warning.style.display = 'none';
       return true;
-    } else {
-      warning.style.display = "";
-      return false;
     }
+    warning.style.display = '';
+    return false;
   }
 
   function validCVV() {
-    const CVV = document.getElementById("cvv");
-    let warning = document.getElementById("cvvInvalid");
+    const CVV = document.getElementById('cvv');
+    const warning = document.getElementById('cvvInvalid');
 
     if (/^([0-9]{3})$/.test(CVV.value)) {
-      warning.style.display = "none";
+      warning.style.display = 'none';
       return true;
-    } else {
-      warning.style.display = "";
-      return false;
     }
+    warning.style.display = '';
+    return false;
   }
 
   function onSubmit(event) {
@@ -310,24 +304,24 @@ const FORM_VALIDATE = (() => {
     validZipCode();
     validCVV();
 
-    const SELECT_PAYMENT = document.getElementById("payment");
+    const SELECT_PAYMENT = document.getElementById('payment');
     const VALUE = SELECT_PAYMENT.value;
 
     if (
       !validName() ||
       !validEmail() ||
       !validActivities() ||
-      (VALUE === "credit card" && !validCreditCardNum()) ||
-      (VALUE === "credit card" && !validZipCode()) ||
-      (VALUE === "credit card" && !validCVV())
+      (VALUE === 'credit card' && !validCreditCardNum()) ||
+      (VALUE === 'credit card' && !validZipCode()) ||
+      (VALUE === 'credit card' && !validCVV())
     ) {
       event.preventDefault();
-      alert("Please amend areas detailed in red");
+      alert('Please amend areas detailed in red');
     } else {
-      alert("Thank you for your submission, enjoy the conference!");
+      alert('Thank you for your submission, enjoy the conference!');
     }
   }
 
-  const FORM = document.querySelector("form");
-  FORM.addEventListener("submit", onSubmit);
+  const FORM = document.querySelector('form');
+  FORM.addEventListener('submit', onSubmit);
 })();
