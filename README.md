@@ -2,27 +2,18 @@
 permalink: /index.html
 ---
 
-CONTENTS OF THIS FILE
----------------------
-
- * Introduction
+<img src='readme-images/treehouse.png' width='200' height='50' alt='treehouse logo'/>
 
 # TechDegree-Project-3
 
- Use of JavaScript to enhance an interactive registration form for a fictional conference called "FullStack Conf."
- 
- The form was made more user friendly with javascript by 
+## Interactive form with Validation
 
+<img src='readme-images/front.jpeg' width='350' height='200' alt='project preview'/>
 
-* adding customized and conditional behavior and interactivity
+## Live Demo
 
-* validating user input and providing helpful error messages when the user enters invalid information into the form fields.
+https://webdevbrum.github.io/TechDegree-Project-3/
 
+## Getting Started
 
- * Requirements
- * Recommended modules
- * Installation
- * Configuration
- * Troubleshooting
- * FAQ
- * Maintainers
+No pre requisite installation required, built using Vanilla JavaScript
